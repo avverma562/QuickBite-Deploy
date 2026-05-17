@@ -27,7 +27,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         // Skip ONLY login and register — all other /auth/** endpoints need JWT
         String uri = request.getRequestURI();
-        if (uri.endsWith("/auth/login") || uri.endsWith("/auth/register") || uri.endsWith("/auth/forgot-password") || uri.endsWith("/auth/reset-password") || uri.endsWith("/auth/test")) {
+        if (uri.endsWith("/auth/login") || uri.endsWith("/auth/register") || uri.endsWith("/auth/forgot-password") || uri.endsWith("/auth/reset-password") || uri.endsWith("/test")) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -41,7 +41,7 @@ public class JwtFilter extends OncePerRequestFilter {
             if (jwtUtil.validateToken(token)) {
 
                 String email = jwtUtil.extractEmail(token);
-                String role = jwtUtil.extractRole(token); // 🔥 NEW
+                String role = jwtUtil.extractRole(token); //  NEW
 
                 List<SimpleGrantedAuthority> authorities =
                         List.of(new SimpleGrantedAuthority(role));
